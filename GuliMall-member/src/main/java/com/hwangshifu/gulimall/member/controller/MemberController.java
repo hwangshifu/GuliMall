@@ -3,12 +3,9 @@ package com.hwangshifu.gulimall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.hwangshifu.gulimall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hwangshifu.gulimall.member.entity.MemberEntity;
 import com.hwangshifu.gulimall.member.service.MemberService;
@@ -29,6 +26,14 @@ import com.hwangshifu.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    CouponFeignService couponFeignService;
+
+    @GetMapping("/detectHealth")
+    public R detectHealth(){
+        return couponFeignService.detectHealth();
+    }
 
     /**
      * 列表
