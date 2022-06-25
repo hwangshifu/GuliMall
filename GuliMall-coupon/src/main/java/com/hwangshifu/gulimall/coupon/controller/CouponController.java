@@ -5,6 +5,8 @@ import com.hwangshifu.common.utils.R;
 import com.hwangshifu.gulimall.coupon.entity.CouponEntity;
 import com.hwangshifu.gulimall.coupon.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -18,11 +20,23 @@ import java.util.Map;
  * @email hwangshifuu@gmail.com
  * @date 2022-06-25 15:32:22
  */
+@RefreshScope
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+    @Value("${coupon.user.name}")
+    private String userName;
+
+    @Value("${coupon.user.age}")
+    private String userAage;
+
+    @GetMapping("/nacos/config")
+    public R config(){
+        return R.ok().put("userName",userName).put("userAage",userAage);
+    }
 
 
     @GetMapping("/detectHealth")

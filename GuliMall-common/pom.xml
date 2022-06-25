@@ -93,6 +93,13 @@
             <version>3.1.3</version>
         </dependency>
 
+        <!--Nacos配置中心失效-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
         <!--配置中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
