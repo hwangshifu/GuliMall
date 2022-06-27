@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,6 +24,17 @@ import java.util.Map;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+
+    /**
+     * 所有数据-tree结构
+     * @return
+     */
+    @RequestMapping("/list/tree")
+    public R list() {
+        List<CategoryEntity> entityList = categoryService.listTree();
+        return R.ok().put("data", entityList);
+    }
 
     /**
      * 列表
