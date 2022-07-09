@@ -19,6 +19,7 @@
         <module>renren-generator</module>
         <module>GuliMall-common</module>
         <module>GuliMall-gateway</module>
+        <module>GuliMall-third-party</module>
     </modules>
 
 </project>

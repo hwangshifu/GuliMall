@@ -44,3 +44,65 @@
             <version>3.0.4</version>
         </dependency>
 ```
+
+### 三、引入`spring-cloud-starter-alicloud-oss`后启动报错
+
+**问题**
+
+控制台输出：
+
+```Java
+Error creating bean with name 'ossClient' defined in class path resource [com/alibaba/alicloud/context/oss/OssContextAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.aliyun.oss.OSS]: Factory method 'ossClient' threw exception; nested exception is java.lang.IllegalArgumentException: Oss endpoint can't be empty.
+```
+
+网上找了一大圈，发现不管用。
+
+**解决**
+
+首先 `dependencyManagement` 中引入：
+
+```Java
+            <!--oss依赖-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>aliyun-spring-boot-dependencies</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+```
+
+然后点开`spring-cloud-starter-alicloud-oss` ，看看里面`spring-cloud-alicloud-oss`是不是错，是的话需要在外面的`starter`依赖中把他排除掉。
+
+```Java
+<!--oss-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+            <version>2.2.0.RELEASE</version>
+            <exclusions>
+                <!--解决oss启动报错 把这个排除掉-->
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-alicloud-oss</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+```
+### 四、在引入`aliyun-spring-boot-dependencies`后启动报错
+**解决**
+
+启动报 `Unsatisfied dependency expressed through field 'ossClient'` 
+
+**解决**
+
+将第三步引入的 `aliyun-spring-boot-dependencies` 注释掉，并且把之前的 `exclusion` 的也注释掉。【问就是不知道 怎么回事】
+
+
+
+
+
+
+
+
